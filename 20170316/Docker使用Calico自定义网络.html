@@ -174,12 +174,13 @@
 <div class="container body-wrap">
     
     <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
             <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#操作"><span class="post-toc-number">2.</span> <span class="post-toc-text">操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下载"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">下载</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#准备ETCD"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">准备ETCD</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置docker"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">配置docker</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置calico"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">配置calico</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#将当前主机加入calico"><span class="post-toc-number">2.4.1.</span> <span class="post-toc-text">将当前主机加入calico</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#查看calico的ip池"><span class="post-toc-number">2.4.2.</span> <span class="post-toc-text">查看calico的ip池</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#删除calico默认的网络-非必要步骤"><span class="post-toc-number">2.4.3.</span> <span class="post-toc-text">删除calico默认的网络(非必要步骤)</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#创建calico自定义网络"><span class="post-toc-number">2.4.4.</span> <span class="post-toc-text">创建calico自定义网络</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#docker创建calico网络"><span class="post-toc-number">2.4.5.</span> <span class="post-toc-text">docker创建calico网络</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#配置calico的网络权限"><span class="post-toc-number">2.4.6.</span> <span class="post-toc-text">配置calico的网络权限</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Try-It"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">Try It</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#相关命令"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">相关命令</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">3.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
         </nav>
     </aside>
-    
+
+
 <article id="post-Docker使用Calico自定义网络"
   class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -239,6 +240,7 @@
         </div>
 
         <blockquote class="post-copyright">
+    
     <div class="content">
         
 <span class="post-time">
@@ -250,6 +252,7 @@
         <font color="#FF0000">本站全面使用Disuqus评论，看不到评论框的请各位自己翻墙解决！</font></br> 原文链接：<a href="/20170316/Docker使用Calico自定义网络.html" target="_blank" rel="external">http://www.antergone.com/20170316/Docker使用Calico自定义网络.html</a>·
         
     </div>
+    
     <footer>
         <a href="http://www.antergone.com">
             <img src="/img/avatar.jpg" alt="Antergone">
@@ -343,23 +346,38 @@
     
 
 
-<section class="comments" id="comments">
-    <div id="disqus_thread"></div>
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
     <script>
-    var disqus_shortname = 'antergone';
-    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "qtX6lEwbhsNW3ewjmpmNg4gM-gzGzoHsz",
+            appKey: "fBuIoxrOWVeMYGoBFGIsRGT4",
+            avatar: "mm",
+            placeholder: "留下你想说的...",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-
-
-
-
-
-
-
-
-
+    <!-- Valine Comments end -->
 
 
 
@@ -481,27 +499,6 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 <script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 

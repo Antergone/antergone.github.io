@@ -174,12 +174,13 @@
 <div class="container body-wrap">
     
     <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
             <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Linux版本"><span class="post-toc-number">1.</span> <span class="post-toc-text">Linux版本:</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Windows版本"><span class="post-toc-number">2.</span> <span class="post-toc-text">Windows版本</span></a></li></ol>
         </nav>
     </aside>
-    
+
+
 <article id="post-Docker配置文件 daemon.json全配置项"
   class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -208,6 +209,7 @@
         </div>
 
         <blockquote class="post-copyright">
+    
     <div class="content">
         
 <span class="post-time">
@@ -219,6 +221,7 @@
         <font color="#FF0000">本站全面使用Disuqus评论，看不到评论框的请各位自己翻墙解决！</font></br> 原文链接：<a href="/20170219/Docker配置文件 daemon.json全配置项.html" target="_blank" rel="external">http://www.antergone.com/20170219/Docker配置文件 daemon.json全配置项.html</a>·
         
     </div>
+    
     <footer>
         <a href="http://www.antergone.com">
             <img src="/img/avatar.jpg" alt="Antergone">
@@ -312,23 +315,38 @@
     
 
 
-<section class="comments" id="comments">
-    <div id="disqus_thread"></div>
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
     <script>
-    var disqus_shortname = 'antergone';
-    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "qtX6lEwbhsNW3ewjmpmNg4gM-gzGzoHsz",
+            appKey: "fBuIoxrOWVeMYGoBFGIsRGT4",
+            avatar: "mm",
+            placeholder: "留下你想说的...",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</section>
-
-
-
-
-
-
-
-
-
+    <!-- Valine Comments end -->
 
 
 
@@ -450,27 +468,6 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 <script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
-
-<!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
-
-<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
 
 
 
