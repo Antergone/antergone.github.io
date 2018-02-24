@@ -202,7 +202,7 @@
 </blockquote>
 <p>这个错是什么意思呢？  说白了就是没有证书。所以这个时候如果我们手头没有证书，或者做验证性试验的时候，就需要信任这个地址。</p>
 <p>新版本的Docker配置方式是：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> 添加仓库地址到 insecure-registries</span><br><span class="line">vim /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">    "live-restore": true,</span><br><span class="line">    "insecure-registries":["10.46.18.93:5000"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 添加仓库地址到 insecure-registries</span></span><br><span class="line">vim /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">    "live-restore": true,</span><br><span class="line">    "insecure-registries":["10.46.18.93:5000"]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>附：daemon.json的全配置项</p>
 
         </div>
