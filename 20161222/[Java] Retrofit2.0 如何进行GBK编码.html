@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=63503628"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?e66a291e64dfd47a97f108dd3c277fef"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>[Java] Retrofit2.0 如何进行GBK编码 | Antergone | Progress is the activity of today and the assurance of tomorrow.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Java,OkHttp,Retrofit">
+    <meta name="description" content="对Retrofit + OkHttp还不熟悉的人可以点传送门，先看下这两个东西的使用。  Retrofit: https://github.com/square/retrofit OkHttp: https://github.com/square/okhttp  分析接口文档要求Post请求，字段使用GBK编码我们先按照Retrofit的规范和接口文档来写接口： @POST(SEND_API_UR">
+<meta name="keywords" content="Java,OkHttp,Retrofit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Java] Retrofit2.0 如何进行GBK编码">
+<meta property="og:url" content="http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html">
+<meta property="og:site_name" content="Antergone">
+<meta property="og:description" content="对Retrofit + OkHttp还不熟悉的人可以点传送门，先看下这两个东西的使用。  Retrofit: https://github.com/square/retrofit OkHttp: https://github.com/square/okhttp  分析接口文档要求Post请求，字段使用GBK编码我们先按照Retrofit的规范和接口文档来写接口： @POST(SEND_API_UR">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-23T17:16:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Java] Retrofit2.0 如何进行GBK编码">
+<meta name="twitter:description" content="对Retrofit + OkHttp还不熟悉的人可以点传送门，先看下这两个东西的使用。  Retrofit: https://github.com/square/retrofit OkHttp: https://github.com/square/okhttp  分析接口文档要求Post请求，字段使用GBK编码我们先按照Retrofit的规范和接口文档来写接口： @POST(SEND_API_UR">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Antergone</h5>
+          <a href="mailto:chnmayu@gmail.com" title="chnmayu@gmail.com" class="mail">chnmayu@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/antergone" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/244614566" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">[Java] Retrofit2.0 如何进行GBK编码</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">[Java] Retrofit2.0 如何进行GBK编码</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2016-12-22T05:21:24.000Z" itemprop="datePublished" class="page-time">
+  2016-12-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/技术杂记/">技术杂记</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分析"><span class="post-toc-number">1.</span> <span class="post-toc-text">分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决方案"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决方案</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-[Java] Retrofit2.0 如何进行GBK编码"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">[Java] Retrofit2.0 如何进行GBK编码</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2016-12-22 13:21:24" datetime="2016-12-22T05:21:24.000Z"  itemprop="datePublished">2016-12-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/技术杂记/">技术杂记</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>对Retrofit + OkHttp还不熟悉的人可以点传送门，先看下这两个东西的使用。</p>
+<ul>
+<li>Retrofit: <a href="https://github.com/square/retrofit" target="_blank" rel="noopener">https://github.com/square/retrofit</a></li>
+<li>OkHttp: <a href="https://github.com/square/okhttp" target="_blank" rel="noopener">https://github.com/square/okhttp</a></li>
+</ul>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>接口文档要求Post请求，字段使用GBK编码<br>我们先按照Retrofit的规范和接口文档来写接口：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@POST</span>(SEND_API_URL)</span><br><span class="line"><span class="meta">@FormUrlEncoded</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Call&lt;SendResponse&gt; <span class="title">send</span><span class="params">(@FieldMap Map&lt;String, Object&gt; bodyMap)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>Retrofit 默认情况下是使用UTF-8编码，其实就是调用的OkHttp3的编码规则。我们来看下OkHttp是怎么做的</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//以下代码摘自okhttp3.HttpUrl</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> String <span class="title">canonicalize</span><span class="params">(String input, <span class="keyword">int</span> pos, <span class="keyword">int</span> limit, String encodeSet, <span class="keyword">boolean</span> alreadyEncoded, <span class="keyword">boolean</span> strict, <span class="keyword">boolean</span> plusIsSpace, <span class="keyword">boolean</span> asciiOnly)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">int</span> codePoint;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i = pos; i &lt; limit; i += Character.charCount(codePoint)) &#123;</span><br><span class="line">       codePoint = input.codePointAt(i);</span><br><span class="line">       <span class="keyword">if</span>(codePoint &lt; <span class="number">32</span> || codePoint == <span class="number">127</span> || codePoint &gt;= <span class="number">128</span> &amp;&amp; asciiOnly || encodeSet.indexOf(codePoint) != -<span class="number">1</span> || codePoint == <span class="number">37</span> &amp;&amp; (!alreadyEncoded || strict &amp;&amp; !percentEncoded(input, i, limit)) || codePoint == <span class="number">43</span> &amp;&amp; plusIsSpace) &#123;</span><br><span class="line">           Buffer out = <span class="keyword">new</span> Buffer();</span><br><span class="line">           out.writeUtf8(input, pos, i);</span><br><span class="line">           canonicalize(out, input, i, limit, encodeSet, alreadyEncoded, strict, plusIsSpace, asciiOnly);</span><br><span class="line">           <span class="keyword">return</span> out.readUtf8();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> input.substring(pos, limit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很多文章说，给他设置一个Content-Type，也就是带上Header，在做请求的时候，确实会去解析，但是对于编码来说，其实并没有什么用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Headers</span>(<span class="string">"Content-Type: application/x-www-form-urlencoded;charset=GBK"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@POST</span>(SEND_API_URL)</span><br><span class="line"><span class="meta">@FormUrlEncoded</span></span><br><span class="line"><span class="meta">@Headers</span>(<span class="string">"Content-Type: application/x-www-form-urlencoded;charset=GBK"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Call&lt;SendResponse&gt; <span class="title">send</span><span class="params">(@FieldMap(encoded = <span class="keyword">true</span>)</span> Map&lt;String, Object&gt; bodyMap)</span>;</span><br></pre></td></tr></table></figure>
+<p>在 <code>@FieldMap</code> 注解里面设置 <code>encoded = true</code><br>这样做的意思就是，这个Map里面的东西我已经做过编码转换，不需要框架去重新转了。 也就是上面的代码中<code>alreadyEncoded = true</code><br>但是这里也要注意，在调用这个方法的时候，传入的Map要自己转码。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最近在对接第三方接口，真的是千奇百怪，吐槽一天都吐槽不完。<br>作为开发人员，我觉得写对外的接口一定要注意，这个接口是给对方开发人员用的，至少编码、格式、参数加密、鉴权等等都要统一。<br>本是同根生相煎何太急 : )</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-23T17:16:06.000Z" itemprop="dateUpdated">2017-08-24 01:16:06</time>
+</span><br>
+
+
+        
+        <font color="#FF0000">本站全面使用Disuqus评论，看不到评论框的请各位自己翻墙解决！</font></br> 原文链接：<a href="/20161222/[Java] Retrofit2.0 如何进行GBK编码.html" target="_blank" rel="external">http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html</a>·
+        
+    </div>
+    <footer>
+        <a href="http://www.antergone.com">
+            <img src="/img/avatar.jpg" alt="Antergone">
+            Antergone
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OkHttp/">OkHttp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrofit/">Retrofit</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html&title=《[Java] Retrofit2.0 如何进行GBK编码》 — Antergone&pic=http://www.antergone.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html&title=《[Java] Retrofit2.0 如何进行GBK编码》 — Antergone&source=盼盼的杂记,记录本人技术领域的点滴成长,主要包括网络安全,信息安全,Java,Scala,Golang,Docker等技术相关文章。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[Java] Retrofit2.0 如何进行GBK编码》 — Antergone&url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html&via=http://www.antergone.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/20170219/Docker配置文件 daemon.json全配置项.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Docker配置文件 daemon.json全配置项</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20161217/[Cracked] Burpsuite V1.7.11.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">[Cracked] Burpsuite V1.7.11 破解版</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'antergone';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Antergone &copy; 2011 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">沪ICP备14054492号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html&title=《[Java] Retrofit2.0 如何进行GBK编码》 — Antergone&pic=http://www.antergone.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html&title=《[Java] Retrofit2.0 如何进行GBK编码》 — Antergone&source=盼盼的杂记,记录本人技术领域的点滴成长,主要包括网络安全,信息安全,Java,Scala,Golang,Docker等技术相关文章。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《[Java] Retrofit2.0 如何进行GBK编码》 — Antergone&url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html&via=http://www.antergone.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.antergone.com/20161222/[Java] Retrofit2.0 如何进行GBK编码.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrklEQVR42u3ay24jMQwEQP//T2eBvRr2dpOSHSxqToPED9UEkJgmH4/4+vl7Pd+/es3zz19d+be8+vwDFx4eHt5o6e+//vn+/WvyhzJ7fPkjw8PDw7vHa78yxycPK8fUhxMeHh7eV3lJUZscIcmy8PDw8P4P3iwBmB0t+T0eHh7et3hJEfw+fs039yTwTYKPw1kLHh4eXszbNMC+df+h/h4eHh5e2VXPr7wxthkvqFeFh4eHd4HXRrRtqDorr09Funh4eHg3eMnbZkMAp0KHVUCMh4eHd42Xb/HJJt6W1+3wVh4c4+Hh4d3g5Zt4u/Qkhtg0uoZhLh4eHt4hXtteyjfo2ULbQYQoUsHDw8M7xEteNNvuk2OmfW+Lx8PDw7vHyzfuzYa+CYiHA1h4eHh413ibIHVfy+dHRTuggIeHh3ePNytb2xJ8Py5QR8l4eHh413h5sbsfCGhbaJtWGR4eHt49XlLgJiHF5oDZjCa8XBseHh7eBV5b+O5L3nxxyX3RPMPDw8M7xJuFDmcDhfZhFSvEw8PDu8xLQoe2U5+/K9/08z8GHh4e3m3ebCCgZeSHxybeLSYj8PDw8Epe8j97flTMBq3yYHd4tODh4eFd4LVbcz5q8Fhfs7EGPDw8vE/y2sZ8276ajSnM2ml4eHh4n+G1pfBsCCBv/7djYatEBA8PDy/m5eNW+Zfl7OFYQFyI4+Hh4d3j5cFuu4hNiTwLL/Dw8PDu8X7K62yRnb9meIDh4eHhXeDNGlGb9lhSIrdNuHyoCw8PD+8UL9+mZwX0ZjhgU7Lj4eHh3eZtWvv58EF7MKxSFjw8PLxfwzvV1N8EuEVogoeHh/dV3j7STYLX2W/x8PDwPs9r21H5IZFHw5vyfXWG4OHh4V248o9OWlPJ1p9/wrG/MB4eHt6/eX8Aiv5UuQYKOw0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Antergone';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Antergone';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

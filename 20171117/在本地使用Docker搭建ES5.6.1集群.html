@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=63503628"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?e66a291e64dfd47a97f108dd3c277fef"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>在本地使用Docker搭建ES5.6.1集群 | Antergone | Progress is the activity of today and the assurance of tomorrow.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Docker,ElasticSearch">
+    <meta name="description" content="docker run -d --name es0 -p 9200:9200 -p 9300:9300 \-e xpack.security.enabled=false \-e xpack.monitoring.enabled=false \-e xpack.watcher.enabled=false \-e xpack.ml.enabled=false \docker.elastic.co/ela">
+<meta name="keywords" content="Docker,ElasticSearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在本地使用Docker搭建ES5.6.1集群">
+<meta property="og:url" content="http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html">
+<meta property="og:site_name" content="Antergone">
+<meta property="og:description" content="docker run -d --name es0 -p 9200:9200 -p 9300:9300 \-e xpack.security.enabled=false \-e xpack.monitoring.enabled=false \-e xpack.watcher.enabled=false \-e xpack.ml.enabled=false \docker.elastic.co/ela">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-11-17T05:37:18.792Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在本地使用Docker搭建ES5.6.1集群">
+<meta name="twitter:description" content="docker run -d --name es0 -p 9200:9200 -p 9300:9300 \-e xpack.security.enabled=false \-e xpack.monitoring.enabled=false \-e xpack.watcher.enabled=false \-e xpack.ml.enabled=false \docker.elastic.co/ela">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Antergone</h5>
+          <a href="mailto:chnmayu@gmail.com" title="chnmayu@gmail.com" class="mail">chnmayu@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/antergone" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/244614566" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">在本地使用Docker搭建ES5.6.1集群</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">在本地使用Docker搭建ES5.6.1集群</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-11-17T05:36:35.000Z" itemprop="datePublished" class="page-time">
+  2017-11-17
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/技术杂记/">技术杂记</a></li></ul></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-在本地使用Docker搭建ES5.6.1集群"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">在本地使用Docker搭建ES5.6.1集群</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-11-17 13:36:35" datetime="2017-11-17T05:36:35.000Z"  itemprop="datePublished">2017-11-17</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/">Docker</a><ul class="article-category-list-child"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Docker/技术杂记/">技术杂记</a></li></ul></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -d --name es0 -p 9200:9200 -p 9300:9300 \</span><br><span class="line">-e xpack.security.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.monitoring.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.watcher.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.ml.enabled=<span class="literal">false</span> \</span><br><span class="line">docker.elastic.co/elasticsearch/elasticsearch:5.6.1</span><br><span class="line"></span><br><span class="line">docker run -d --name es1 --link=es0 -p 9201:9200 -p 9301:9300 \</span><br><span class="line">-e xpack.security.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.monitoring.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.watcher.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.ml.enabled=<span class="literal">false</span> \</span><br><span class="line">-e discovery.zen.ping.unicast.hosts=es0:9300 \</span><br><span class="line">docker.elastic.co/elasticsearch/elasticsearch:5.6.1</span><br><span class="line"></span><br><span class="line">docker run -d --name es2 --link=es0 -p 9202:9200 -p 9302:9300 \</span><br><span class="line">-e xpack.security.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.monitoring.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.watcher.enabled=<span class="literal">false</span> \</span><br><span class="line">-e xpack.ml.enabled=<span class="literal">false</span> \</span><br><span class="line">-e discovery.zen.ping.unicast.hosts=es0:9300 \</span><br><span class="line">docker.elastic.co/elasticsearch/elasticsearch:5.6.1</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-11-17T05:37:18.792Z" itemprop="dateUpdated">2017-11-17 13:37:18</time>
+</span><br>
+
+
+        
+        <font color="#FF0000">本站全面使用Disuqus评论，看不到评论框的请各位自己翻墙解决！</font></br> 原文链接：<a href="/20171117/在本地使用Docker搭建ES5.6.1集群.html" target="_blank" rel="external">http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html</a>·
+        
+    </div>
+    <footer>
+        <a href="http://www.antergone.com">
+            <img src="/img/avatar.jpg" alt="Antergone">
+            Antergone
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html&title=《在本地使用Docker搭建ES5.6.1集群》 — Antergone&pic=http://www.antergone.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html&title=《在本地使用Docker搭建ES5.6.1集群》 — Antergone&source=盼盼的杂记,记录本人技术领域的点滴成长,主要包括网络安全,信息安全,Java,Scala,Golang,Docker等技术相关文章。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在本地使用Docker搭建ES5.6.1集群》 — Antergone&url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html&via=http://www.antergone.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20170321/ElasticJob动态分片.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ElasticJob动态分片</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'antergone';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Antergone &copy; 2011 - 2018</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">沪ICP备14054492号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html&title=《在本地使用Docker搭建ES5.6.1集群》 — Antergone&pic=http://www.antergone.com/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html&title=《在本地使用Docker搭建ES5.6.1集群》 — Antergone&source=盼盼的杂记,记录本人技术领域的点滴成长,主要包括网络安全,信息安全,Java,Scala,Golang,Docker等技术相关文章。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《在本地使用Docker搭建ES5.6.1集群》 — Antergone&url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html&via=http://www.antergone.com" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.antergone.com/20171117/在本地使用Docker搭建ES5.6.1集群.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3a0WqEQAwF0P7/T29fCwW9uXG2Wzg+LeLqHIVMSPL1FR+vX8fP89f/yn9fn7l+1urAw8PDWy/9mvEKjm65T60BDw8P7z28JKwnC0ric3cm2ZDw8PDwPpmX4LtNpUvE8fDw8D6Tl6e/ObtLwfHw8PA+gZcE6E1JIin15lceqbXg4eHhbZ+7amWd/n2kv4eHh4e37qp3ja68YDFIi6vV4uHh4Z3gTYPytDzRlR7yNDpaGx4eHt4BXtfsn960Gz6Y/muQduPh4eFVvHzIKWlQdRtGcs+yBIyHh4d3gNelqklynJdik8ZVtwnh4eHhnePli+g2iXysqmMP9kA8PDy8Ne/ZcJwXf/NWWX7NTesLDw8P7yHetJw6LUbkDf7Nc5P74OHh4T3F26S2eblhuuUk6XvUisPDw8N7Cy95wAYwLXnkIwWDYgQeHh7egpcH2WQgIB/S6kav8nkAPDw8vNO8rqzQlR6mIwX5cMBgAAsPDw/vAC8fn7pOsqfX7F/3IL3Gw8PDq3ibYsS00LApZ5RpPR4eHt5h3rRMME2XN9eXA2F4eHh4x3hdeynfVKYhPv8AUUqNh4eHd4A3bfl3ifJ0oZuyLx4eHt45Xjf8NG3Y50Xh7mXd/AsPDw/vUd503CpPfLuhriT5ztN0PDw8vBO86aWbptezdyunIfDw8PDWvE3YzbeHKHxXA1s3rxIPDw/vAC8pJXSBPi9JjGsnT31DPDw8vIr3Gh55EJ/erSslR98NDw8P71HeNNRubnquWDz9GHh4eHh7XhK+p2H9+tXsC8fjoSs8PDy8A7xp+SB/ZD6w1e1gN80zPDw8vD/lTZFJWO9eEB4eHt5/4XUbRldKyF/EzeaBh4eHd4yX37o7k28tXTGi7PLh4eHhVbxu0GoKyxldW64cGsDDw8Ob8b4BxViSlwTxsMsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = 'Antergone';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Antergone';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
